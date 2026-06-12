@@ -1,0 +1,90 @@
+<p>data-binding works!</p>
+
+
+<div ngSkipHydration>
+<table style="width: 100%;">
+<tbody>
+    <tr>
+
+        <td>
+            <span> {{courseName}} </span>
+        </td>
+
+        <td>
+            <input type="text" value="{{rollNo}}">
+        </td>
+
+        <td>
+            <input type="text" [minLength]="minTestLength">
+        </td>
+
+        <td>
+            <span [class]="spanClassName">Demo Text</span>
+        </td>
+
+        <td>
+            {{currentDate}}
+        </td>
+
+    </tr>
+    <tr>
+
+        <td>
+            {{rollNo}}
+        </td>
+
+        <td>
+
+            <input type="text" [(ngModel)]="rollNo">
+
+        </td>
+
+        <td>
+            <input type="checkbox">
+        </td>
+
+
+    </tr>
+
+</tbody>
+
+
+</table>
+
+<hr>
+<br>
+
+<div>
+
+    <table style="width: 100%;">
+<tbody>
+        <tr>
+
+            <td>
+                <button type="button" (click)="showAlert()"> Show Alert </button>
+
+            </td>
+
+            <td>
+                <select (change)="onCityChanged()">
+                    <option value="Kanpur">Kanpur</option>
+                    <option value="Lucknow">Lucknow</option>
+                    <option value="Jaipur">Jaipur</option>
+                    <option value="Delhi">Delhi</option>
+
+                </select>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+
+
+{{isActive}}
+
+</div>
+
+</div>

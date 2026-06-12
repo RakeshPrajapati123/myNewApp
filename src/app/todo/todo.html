@@ -1,0 +1,23 @@
+<h2>To-Do App 📝</h2>
+
+<!-- INPUT (like counter display input) -->
+<input
+  placeholder="Enter task"
+  [value]="todoText()"
+  (input)="todoText.set($any($event.target).value)"
+/>
+
+<!-- ADD BUTTON (like + button) -->
+<button (click)="addTodo()">Add</button>
+
+<hr />
+
+<!-- LIST -->
+<p>Total Tasks: {{ todos().length }}</p>
+
+<ul>
+  <li *ngFor="let todo of todos(); let i = index">
+    {{ todo }}
+    <button (click)="deleteTodo(i)">❌</button>
+  </li>
+</ul>

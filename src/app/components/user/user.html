@@ -1,0 +1,105 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+
+    <!-- FORM SECTION -->
+    <div class="col-lg-5">
+      <div class="card shadow">
+        <div class="card-header bg-warning text-dark fw-bold">
+          User Form
+        </div>
+        <div class="card-body">
+
+          <form [formGroup]="userForm">
+            <!-- <div class="mb-3">
+              <label class="form-label">User ID</label>
+              <input type="text" class="form-control" placeholder="Enter User ID">
+            </div> -->
+
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" formControlName="fullName" class="form-control" placeholder="Enter Full Name">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email ID</label>
+              <input type="email" formControlName="emailid" class="form-control" placeholder="Enter Email">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" formControlName="password" class="form-control" placeholder="Enter Password">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Mobile No</label>
+              <input type="text" formControlName="mobileNo" class="form-control" placeholder="Enter Mobile Number">
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <button type="button" (click)="onSaveUser()"  class="btn btn-success">Save</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD LIST SECTION -->
+    <div class="col-lg-7">
+      <div class="card shadow">
+        <div class="card-header bg-warning text-dark fw-bold">
+          User List
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+
+            <!-- USER CARD -->
+             @for (item of userList$ |async; track $index) {
+            <div class="col-md-6 mb-3">
+              <div class="card border-primary shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title">{{ item.fullName }}</h5>
+                  <p class="card-text">
+                    <strong>User ID:</strong> {{ item.userid }} <br>
+                    <strong>Email:</strong> {{item.emailid}} <br>
+                    <strong>Mobile:</strong> {{item.mobileNo}} 
+                  </p>
+
+                  <div class="d-flex justify-content-between">
+                    <button class="btn btn-sm btn-primary" (click)="onEdit(item)">Edit</button>
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+            <!-- USER CARD -->
+            <div class="col-md-6 mb-3">
+              <div class="card border-success shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title">John Doe</h5>
+                  <p class="card-text">
+                    <strong>User ID:</strong> 2 <br>
+                    <strong>Email:</strong> john@email.com <br>
+                    <strong>Mobile:</strong> 9999999999
+                  </p>
+
+                  <div class="d-flex justify-content-between">
+                    <button class="btn btn-sm btn-primary">Edit</button>
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ADD MORE CARDS AS NEEDED -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
