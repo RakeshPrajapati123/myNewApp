@@ -1,82 +1,100 @@
+import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { UserService } from '../../services/user-service';
+import { Admin } from "../admin/admin";
+import { Alert } from "../../reusableComponent/alert/alert";
+import { Tabs } from '../../reusableComponent/tabs/tabs';
+import { PhotoModel } from '../../models/model';
 import { CommonModule } from '@angular/common';
-import { response } from 'express';
 
 @Component({
   selector: 'app-photos',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [CommonModule,FormsModule, JsonPipe, Admin, Alert,Tabs],
   templateUrl: './photos.html',
-  styleUrl: './photos.css',
+  styleUrls: ['./photos.css']
 })
 export class Photos implements OnInit {
-  photosList: any[] = [];
 
+  photosList: PhotoModel[] = [];
   http = inject(HttpClient);
-  cd = inject(ChangeDetectorRef); // ✅ important
+  isFormSubmited: boolean = false;
+  myTabList: string[]= ['Basic','Project','Family','Contact','Skill']
+
+  constructor(private userSr : UserService) {
+    const sum = this.userSr.getAddtionOfTwoNo(44,77);
+    //debugger;
+  }
 
   newPhoto: any = {
-    albumId: 0,
-    id: 0,
-    title: '',
-    url: '',
-    thumbnailUrl: '',
-  };
+    "albumId": 0,
+    "id": 0,
+    "title": "",
+    "url": "",
+    "thumbnailUrl": ""
+  }
 
+  
   ngOnInit(): void {
+    //debugger;
     this.getAllPhotos();
   }
 
-  //   getAllPhotos()  {
-
-  // this.http.get("https://jsonplaceholder.typicode.com/photos").subscribe((result: any) => {
-  // this.photosList = result;
-  //   })
-  // }
-
   getAllPhotos() {
-    this.http.get<any[]>('https://jsonplaceholder.typicode.com/photos').subscribe((result) => {
-      console.log('API called'); // 🔍 check this
+    //debugger;
+    
+ this.userSr.getAllPhotos().subscribe({
+  next: (data: any) => {
+    console.log('RAW RESPONSE:', data);
+    console.log('IS ARRAY:', Array.isArray(data));
 
-      // this.photosList = result.slice(0, 50);
-      this.photosList = result;
-      this.cd.detectChanges(); // 🔥 MUST be here
-    });
+    this.photosList = data.slice(0, 25);
+
+    console.log('FINAL LENGTH:', this.photosList.length);
+  },
+  error: (err) => {
+    console.error(err);
   }
+});
+}
 
-  onSavePhoto() {
-    this.http
-      .post('https://jsonplaceholder.typicode.com/photos', this.newPhoto)
-      .subscribe((response: any) => {
-        alert('API Call Success');
+  
+
+  onSavePhoto(form: NgForm) {
+    debugger;
+    this.isFormSubmited = true;
+    if (form.valid) {
+      this.http.post("https://jsonplaceholder.typicode.com/photos", this.newPhoto).subscribe((response: any) => {
+        alert("API call Success")
         debugger;
         this.getAllPhotos();
-      });
+        form.reset();
+         this.isFormSubmited = false;
+      })
+    }
+
   }
 
   onUpdatePhoto() {
-    this.http
-      .put('https://jsonplaceholder.typicode.com/photos/'+ this.newPhoto.id, this.newPhoto)
-      .subscribe((response: any) => {
-        alert('API Call Success');
-        debugger;
-        this.getAllPhotos();
-      });
+    this.http.put("https://jsonplaceholder.typicode.com/photos/" + this.newPhoto.id, this.newPhoto).subscribe((response: any) => {
+      alert("API call Success")
+      debugger;
+      this.getAllPhotos();
+    })
   }
 
-  onDelete(id: number)  {
-
-const isDelete = confirm("Are you sure to want to delete record");
-if(isDelete== true) {
-  this.http.delete('https://jsonplaceholder.typicode.com/photos/'+ id)
-      .subscribe((response: any) => {
-        alert('API Call Success');
+  onDelete(id: number) {
+    const isDelete = confirm("Are you Sure want to Delete");
+    if (isDelete == true) {
+      this.http.delete("https://jsonplaceholder.typicode.com/photos/" + id).subscribe((response: any) => {
+        alert("API call Success")
         debugger;
         this.getAllPhotos();
-      });
+      })
     }
+
   }
 
   onEdit(data: any) {

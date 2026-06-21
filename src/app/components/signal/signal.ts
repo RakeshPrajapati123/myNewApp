@@ -4,25 +4,41 @@ import { Component, signal } from '@angular/core';
   selector: 'app-signal',
   imports: [],
   templateUrl: './signal.html',
-  styleUrl: './signal.css',
+  styleUrl: './signal.css'
 })
 export class Signal {
-  courseName: string = 'Angular';
 
-  angularVersion = signal('20');
+
+  courseName: string = "Angular";
+
+  angularVersion = signal("20");
 
   courseDuration = signal<string>('2 Months');
 
-  cityList = signal<string[]>(['Pune', 'Mumbai']);
+  cityList = signal<string[]>(["Pune", "Mumbai"])
 
-  changeDuration() {
-    this.courseName = 'react.js';
-    this.courseDuration.set('3 Months');
+  studentObj = signal<any>({
+    name: 'AAA',
+    city: 'Pune'
+  })
+
+
+  chnageDuration() {
+    this.courseName = "Raact js";
+    this.courseDuration.set("3 Month")
   }
 
-  addCity(cityName: string) {
+  addcity(cityName: string) {
+    this.cityList.update((old: string[]) => [...old, cityName])
+  }
 
-this.cityList.update((old: string[]) => [...old, cityName]);
+  chnageCity() {
+    this.studentObj.update((oldObj: any) => ({ ...oldObj, city: 'Thane' }))
+
+    this.studentObj.set({
+      name: 'AAA',
+      city: 'Mumabi'
+    })
   }
 
 }

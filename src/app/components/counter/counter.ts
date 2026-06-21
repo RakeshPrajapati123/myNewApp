@@ -8,7 +8,7 @@ import { signal } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './counter.html',
-  styleUrl: './counter.css'
+  styleUrls: ['./counter.css']
 })
 export class Counter {
 

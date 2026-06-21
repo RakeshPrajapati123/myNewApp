@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './todo.html',
-  styleUrl: './todo.css',
+  styleUrls: ['./todo.css'],
 })
 export class Todo {
   todoText = signal('');

@@ -1,90 +1,136 @@
-<p>data-binding works!</p>
+<div (scroll)="onWindowSizeChange()">
 
-
-<div ngSkipHydration>
-<table style="width: 100%;">
-<tbody>
-    <tr>
-
-        <td>
-            <span> {{courseName}} </span>
-        </td>
-
-        <td>
-            <input type="text" value="{{rollNo}}">
-        </td>
-
-        <td>
-            <input type="text" [minLength]="minTestLength">
-        </td>
-
-        <td>
-            <span [class]="spanClassName">Demo Text</span>
-        </td>
-
-        <td>
-            {{currentDate}}
-        </td>
-
-    </tr>
-    <tr>
-
-        <td>
-            {{rollNo}}
-        </td>
-
-        <td>
-
-            <input type="text" [(ngModel)]="rollNo">
-
-        </td>
-
-        <td>
-            <input type="checkbox">
-        </td>
-
-
-    </tr>
-
-</tbody>
-
-
-</table>
-
-<hr>
-<br>
-
-<div>
 
     <table style="width: 100%;">
-<tbody>
         <tr>
-
             <td>
-                <button type="button" (click)="showAlert()"> Show Alert </button>
-
+                <span> {{courseName}}</span>
             </td>
-
             <td>
-                <select (change)="onCityChanged()">
-                    <option value="Kanpur">Kanpur</option>
-                    <option value="Lucknow">Lucknow</option>
-                    <option value="Jaipur">Jaipur</option>
-                    <option value="Delhi">Delhi</option>
-
-                </select>
+                <input type="text" value="{{rollNo}}">
             </td>
-
+            <td>
+                {{currentDate}}
+            </td>
         </tr>
-
-        </tbody>
-
+        <tr>
+            <td>
+                <input type="text" [value]="rollNo">
+            </td>
+            <td>
+                <input type="text" [minLength]="minTestLength">
+            </td>
+            <td>
+                <span [class]="spanClassName">Demo text</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{rollNo}}
+            </td>
+            <td>
+                <input type="text" [(ngModel)]="rollNo">
+            </td>
+            <td>
+                <input type="checkbox" [(ngModel)]="isActive">
+            </td>
+            <td>
+                {{isActive}}
+            </td>
+        </tr>
     </table>
 
+    <br>
+    <hr>
+    <table style="background-color: red;" (mouseenter)="onMoudeEnter()">
 
-
-{{isActive}}
-
+        <tr>
+            <td>
+                <button (click)="showAlert()">Show Alert</button>
+            </td>
+            <td>
+                <select (change)="onCityChanged()">
+                    <option value="">Nagpur</option>
+                    <option value="">Pune</option>
+                    <option value="">Mumbai</option>
+                </select>
+            </td>
+        </tr>
+    </table>
 </div>
 
+<div class="row">
+    <div class="col-3">
+        courseName => {{courseName}}
+        <br>
+        uppercase => {{courseName | uppercase}}
+    </div>
+    <div class="col-3">
+        courseName => {{courseName}}
+        <br>
+        lowercase => {{courseName | lowercase}}
+    </div>
+    <div class="col-3">
+        courseName => {{courseName}}
+        <br>
+        titlecase => {{courseName | titlecase}}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-3">
+        rollNoList -=> {{rollNoList}}
+    </div>
+     <div class="col-3">
+        slice -=> {{rollNoList | slice:0:4}}
+    </div>
+     <div class="col-3">
+        slice -=> {{rollNoList | slice:2}}
+    </div>
+    <div class="col-3">
+        slice -=> {{spanClassName | slice:0:2}}
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="col-3">
+        currentDate -=> {{currentDate}}
+    </div>
+     <div class="col-3">
+        date -=> {{currentDate |date}}
+    </div>
+     <div class="col-3">
+         dd-MM-yy -=> {{currentDate | date:'dd-MM-yy'}}
+        <br>
+        dd-MMM-yy -=> {{currentDate | date:'dd-MMM-yy'}}
+        <br>
+         dd-MMMM-yy -=> {{currentDate | date:'dd-MMMM-yyyy'}}
+         <br>
+         dd-MMMM-yy -=> {{currentDate | date:'dd/MMMM/yyyy'}}
+    </div>
+    <div class="col-3">
+        time -=> {{currentDate | date:'HH:MM'}}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-3">
+        studentObj => {{studentObj}}
+    </div>
+    <div class="col-3">
+        studentObj => {{studentObj | json}}
+    </div>
+    <div class="col-3">
+       name: {{studentObj.name}}
+       <br>
+         city: {{studentObj.city |na}}
+       <br>
+         state: {{studentObj.state }}
+       <br>
+         pContactNo: {{studentObj.contact.pContactNo }}
+       <br>
+         email: {{studentObj.contact.email}}
+       <br>
+    </div>
 </div>

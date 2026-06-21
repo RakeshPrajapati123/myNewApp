@@ -1,105 +1,104 @@
-<div class="container mt-4">
-  <div class="row justify-content-center">
+<div class="container">
 
-    <!-- FORM SECTION -->
-    <div class="col-lg-5">
-      <div class="card shadow">
-        <div class="card-header bg-warning text-dark fw-bold">
-          User Form
+  <app-tabs
+  [tabList]="['List View','Form View']"
+  (tabSelected)="onSelectTab($event)">
+</app-tabs>
+  <h2 class="mb-4 text-center">User CRUD Operation</h2>
+  <app-alert [alertType]="'Success'" [alertMessage]="'Welcome Use Page'" ></app-alert>
+
+    <app-alert [alertType]="'Error'" [alertMessage]="'Welcome Use Page'" ></app-alert>
+  <div class="row g-4">
+    <!-- Form Section -->
+
+
+    <!-- Card-based User Display -->
+     @if(selectedViewName =='List View') {
+       <div class="col-12">
+      <div class="card  shadow mb-3">
+        <div class="card-header bg-warning">
+          <h5 class="mb-0">User List (Card View)</h5>
         </div>
         <div class="card-body">
-
-          <form [formGroup]="userForm">
-            <!-- <div class="mb-3">
-              <label class="form-label">User ID</label>
-              <input type="text" class="form-control" placeholder="Enter User ID">
-            </div> -->
-
-            <div class="mb-3">
-              <label class="form-label">Full Name</label>
-              <input type="text" formControlName="fullName" class="form-control" placeholder="Enter Full Name">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Email ID</label>
-              <input type="email" formControlName="emailid" class="form-control" placeholder="Enter Email">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input type="password" formControlName="password" class="form-control" placeholder="Enter Password">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Mobile No</label>
-              <input type="text" formControlName="mobileNo" class="form-control" placeholder="Enter Mobile Number">
-            </div>
-
-            <div class="d-flex justify-content-between">
-              <button type="reset" class="btn btn-secondary">Reset</button>
-              <button type="button" (click)="onSaveUser()"  class="btn btn-success">Save</button>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD LIST SECTION -->
-    <div class="col-lg-7">
-      <div class="card shadow">
-        <div class="card-header bg-warning text-dark fw-bold">
-          User List
-        </div>
-
-        <div class="card-body">
-          <div class="row">
-
-            <!-- USER CARD -->
-             @for (item of userList$ |async; track $index) {
-            <div class="col-md-6 mb-3">
-              <div class="card border-primary shadow-sm">
+          <div class="row g-3">
+            <!-- User Card 1 -->
+            @for (item of userList$ |async; track $index) {
+            <div class="col-md-6">
+              <div class="card user-card shadow-sm border border-dark">
                 <div class="card-body">
-                  <h5 class="card-title">{{ item.fullName }}</h5>
-                  <p class="card-text">
-                    <strong>User ID:</strong> {{ item.userid }} <br>
-                    <strong>Email:</strong> {{item.emailid}} <br>
-                    <strong>Mobile:</strong> {{item.mobileNo}} 
-                  </p>
-
-                  <div class="d-flex justify-content-between">
-                    <button class="btn btn-sm btn-primary" (click)="onEdit(item)">Edit</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                  </div>
+                  <h5 class="card-title">{{item.fullName}}</h5>
+                  <p class="card-text mb-1"><strong appHighlight>Email:</strong> {{item.emailId}}</p>
+                  <p class="card-text mb-1"><strong appHighlight>Mobile:</strong> {{item.mobileNo}}</p>
+                  <p class="card-text mb-3"><strong appHighlight>Password:</strong> {{item.password}}</p>
+                  <button class="btn btn-sm btn-success me-2" (click)="onEdit(item)">Edit</button>
+                  <button class="btn btn-sm btn-danger">Delete</button>
                 </div>
               </div>
             </div>
-          }
-            <!-- USER CARD -->
-            <div class="col-md-6 mb-3">
-              <div class="card border-success shadow-sm">
-                <div class="card-body">
-                  <h5 class="card-title">John Doe</h5>
-                  <p class="card-text">
-                    <strong>User ID:</strong> 2 <br>
-                    <strong>Email:</strong> john@email.com <br>
-                    <strong>Mobile:</strong> 9999999999
-                  </p>
-
-                  <div class="d-flex justify-content-between">
-                    <button class="btn btn-sm btn-primary">Edit</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ADD MORE CARDS AS NEEDED -->
-
+            }
           </div>
         </div>
       </div>
     </div>
+     } @else {
+       <div class="col-12">
+      <div class="card shadow">
+        <div class="card-header bg-warning">
+          <h5 class="mb-0">User Form</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="userForm">
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" formControlName="fullName" class="form-control" id="fullName"
+                placeholder="Enter Full Name">
+              @if (userForm.controls['fullName'].touched || userForm.controls['fullName'].dirty || isFormSubmited) {
+              <div class="text-danger">
+                <!-- -{{titleTem.errors| json}} -->
+                @if(userForm.controls['fullName'].errors?.['required']) {
+                <span>This is Required</span>
+                }
+              </div>
+              }
+            </div>
+            <div class="mb-3">
+              <label for="emailId" class="form-label">Email ID</label>
+              <input type="email" formControlName="emailId" class="form-control" id="emailId" placeholder="Enter Email">
+              @if (userForm.controls['emailId'].touched || userForm.controls['emailId'].dirty || isFormSubmited) {
+              <div class="text-danger">
+                <!-- -{{titleTem.errors| json}} -->
+                @if(userForm.controls['emailId'].errors?.['required']) {
+                <span>This is Required</span>
+                }
+              </div>
+              }
+            </div>
+            <div class="mb-3">
+              <label for="mobileNo" class="form-label">Mobile No</label>
+              <input type="text" formControlName="mobileNo" class="form-control" id="mobileNo"
+                placeholder="Enter Mobile Number">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" formControlName="password" class="form-control" id="password"
+                placeholder="Enter Password">
+            </div>
+            ---{{userForm.controls['userId'].value}}
+            @if (userForm.controls['userId'].value == 0) {
+            <button type="button" (click)="onSaveUser()" class="btn btn-primary me-2">Save</button>
+            } @else {
+            <button type="button" (click)="onSaveUser()" class="btn btn-warning me-2">Update</button>
+            }
+
+
+            <button type="reset" class="btn btn-secondary" (click)="onClear()">Clear</button>
+          </form>
+        </div>
+      </div>
+    </div>
+     }
+   
+   
 
   </div>
 </div>

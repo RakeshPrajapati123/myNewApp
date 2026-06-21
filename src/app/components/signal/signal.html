@@ -1,11 +1,16 @@
 <p>signal works!</p>
 
-<p>{{ courseName }}</p>
-<p>{{ angularVersion() }}</p>
-<p>{{ courseDuration() }}</p>
+<p>{{courseName}}</p>
+<p>{{angularVersion()}}</p>
+<p>{{courseDuration()}}</p>
 
-<button (click)="changeDuration()"> Change Duration </button>
 
-<p> {{ cityList()}} </p>
+<button (click)="chnageDuration()">Chnage duration</button>
 
-<button (click)="addCity('Nagpur')"> Add Nagpur </button>
+{{cityList()}}
+
+<button (click)="addcity('Nagpur')">Add Nagpur</button>
+
+{{studentObj().name}} -- {{studentObj().city}}
+
+<button (click)="chnageCity()">Chnage City</button>

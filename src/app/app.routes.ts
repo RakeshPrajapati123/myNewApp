@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-import { Counter } from './counter/counter';
-import { Todo } from './todo/todo';
-
+import { Counter } from './components//counter/counter';
+import { Todo } from './components/todo/todo';
 import { Admin } from './components/admin/admin';
 import { User } from './components/user/user';
 import { DataBinding } from './components/data-binding/data-binding';
